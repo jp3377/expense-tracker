@@ -1,0 +1,16 @@
+import express from "express";
+import { registerUser, loginUser, getCurrentUser, updateProfie, updatePassword } from "../controllers/userController.js";
+// import { use } from "react";
+import authMiddleware from "../middleware/auth.js";
+
+const userRouter = express.Router();
+
+userRouter.post("/register", registerUser);
+userRouter.post("/login", loginUser);   
+
+//protected route
+userRouter.get("/me", authMiddleware, getCurrentUser);
+userRouter.put("/profile", authMiddleware, updateProfie);
+userRouter.put("/password", authMiddleware, updatePassword);
+
+export default userRouter;
