@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import { connectDB } from './config/db.js';
-// import { use } from 'react';
+
 import userRouter from './routes/userRoute.js';
 import incomeRouter from './routes/incomeRoute.js';
 import expenseRouter from './routes/expenseRoute.js';
@@ -12,23 +12,27 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// DB
+// Database
 connectDB();
 
 // Routes
-app.use("/api/user", (userRouter));
-app.use("/api/income", (incomeRouter));
-app.use("/api/expense", (expenseRouter));
-app.use("/api/dashboard", (dashboardRouter)); 
+app.use("/api/user", userRouter);
+app.use("/api/income", incomeRouter);
+app.use("/api/expense", expenseRouter);
+app.use("/api/dashboard", dashboardRouter);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

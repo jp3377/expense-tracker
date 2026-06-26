@@ -30,8 +30,7 @@ import { getTimeFrameRange, generateChartPoints } from "../components/Helper";
 import { CATEGORY_ICONS } from "../assets/color";
 import { expensePageStyles as styles } from "../assets/dummyStyles";
 
-const API_BASE = "http://localhost:4000/api";
-
+const API_BASE = import.meta.env.VITE_API_URL;
 /**
  * Helper: convert date (or datetime) to ISO by attaching client current time
  * - If `dateValue` is "YYYY-MM-DD" (length 10) => attach current HH:MM:SS
@@ -97,7 +96,7 @@ const ExpensePage = () => {
 
   // Auth headers helper
   const getAuthHeaders = useCallback(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     return token ? { Authorization: `Bearer ${token}` } : {};
   }, []);
 

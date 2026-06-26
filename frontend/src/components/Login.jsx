@@ -4,7 +4,7 @@ import { Eye, EyeOff, Lock, Mail, User, Zap } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Login = ({ onLogin, API_URL = "http://localhost:4000" }) => {
+const Login = ({ onLogin, API_URL = import.meta.env.VITE_API_URL.replace("/api", "") }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

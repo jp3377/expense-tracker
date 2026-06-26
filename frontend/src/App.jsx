@@ -10,7 +10,7 @@ import Expense from './pages/Expense'
 import Profile from './pages/Profile'
 // import { set } from 'mongoose' 
 
-const API_URL = "http://localhost:4000";
+const API_URL = import.meta.env.VITE_API_URL.replace("/api", "");
 
 const getTransactionsFromStorage = () => {
   const saved = localStorage.getItem("transactions");
@@ -83,7 +83,6 @@ const App = () => {
 
   const updateUser = (updatedUser) => {
     setUser(updatedUser);
-    const storage = localStorage.getItem("token");
     const localToken = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("token");
 
@@ -116,7 +115,7 @@ const App = () => {
 
         if (storedToken) {
           try {
-            const response = await axios.get(`${API_URL}/api/auth/me`, {
+            const response = await axios.get(`${API_URL}/api/user/me`, {
               headers: {
                 "Authorization": `Bearer ${storedToken}`
               }

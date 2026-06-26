@@ -31,7 +31,7 @@ import { getTimeFrameRange, generateChartPoints } from "../components/Helper";
 import { INCOME_COLORS, CATEGORY_ICONS_Inc } from "../assets/color";
 import { incomeStyles as styles } from "../assets/dummyStyles";
 
-const API_BASE = "http://localhost:4000/api";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 function toIsoWithClientTime(dateValue) {
   if (!dateValue) {
@@ -200,7 +200,7 @@ const Income = () => {
   });
 
   const getAuthHeaders = useCallback(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     return token ? { Authorization: `Bearer ${token}` } : {};
   }, []);
 

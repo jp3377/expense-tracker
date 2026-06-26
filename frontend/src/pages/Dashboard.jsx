@@ -10,10 +10,10 @@ import GaugeCard from '../components/GaugeCard';
 import AddTransactionModal from '../components/Add';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 
-const API_URL = "http://localhost:4000/api";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const getAuthHeader = () => {
-  const token = localStorage.getItem("token") || localStorage.getItem("authToken");
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token") || localStorage.getItem("authToken");
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
